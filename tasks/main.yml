@@ -1,0 +1,42 @@
+---
+- name: Install UFW
+  apt:
+    pkg: ufw
+    state: present
+    update_cache: "yes"
+    cache_valid_time: 3600
+
+- name: Check if firewall rules have changed
+  template:
+    src: "rules.j2"
+    dest: "/tmp/ansible.ufw.rules"
+    mode: 0600
+  register: ufw_old_rules
+
+- name: Reset firewall rules
+  ufw:
+    state: reset
+  when: ufw_old_rules.changed
+  tags:
+    - skip_ansible_lint     # When changed used to identify removed rules
+
+- name: Apply custom firewall
+  ufw:
+    rule: "{{ item.rule }}"
+    to_port: "{{ item.to_port }}"
+    proto: "{{ item.proto | default('any') }}"
+    to_ip: "{{ item.to_ip | default(omit) }}"
+    from_port: "{{ item.from_port | default(omit) }}"
+    from_ip: "{{ item.from_ip | default(omit) }}"
+    interface: "{{ item.interface | default(omit) }}"
+    direction: "{{ item.direction | default(omit) }}"
+    log: "{{ item.log | default(omit) }}"
+  with_items: "{{ ufw_rules }}"
+  when: ufw_old_rules.changed
+  tags:
+    - skip_ansible_lint      # When changed used to identify removed rules
+
+- name: Ensure firewall is enabled with default policy
+  ufw:
+    state: enabled
+    policy: "{{ ufw_default_policy }}"

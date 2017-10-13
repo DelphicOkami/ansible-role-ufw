@@ -1,0 +1,24 @@
+---
+galaxy_info:
+  author: Mark Hesketh
+  description: UFW (Uncomplicated Firewall), firewall configuration for Debian/Ubuntu
+  license: MIT
+  min_ansible_version: 2.0
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  categories:
+    - system
+    - ubuntu
+    - debian
+    - ufw
+    - firewall
+    - install
+    - web
+    - security
+    - server
+dependencies: []
