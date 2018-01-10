@@ -12,6 +12,8 @@
     dest: "/tmp/ansible.ufw.rules"
     mode: 0600
   register: ufw_old_rules
+  tags:
+    - configuration
 
 - name: Reset firewall rules
   ufw:
@@ -19,6 +21,7 @@
   when: ufw_old_rules.changed
   tags:
     - skip_ansible_lint     # When changed used to identify removed rules
+    - configuration
 
 - name: Apply custom firewall
   ufw:
@@ -35,8 +38,11 @@
   when: ufw_old_rules.changed
   tags:
     - skip_ansible_lint      # When changed used to identify removed rules
+    - configuration
 
 - name: Ensure firewall is enabled with default policy
   ufw:
     state: enabled
     policy: "{{ ufw_default_policy }}"
+  tags:
+    - configuration
