@@ -26,7 +26,7 @@ ufw_rules:
     rule: allow
 ```
 
-The `ufw_rules` variable is an array of objects, with the following options from the [UFW module](http://docs.ansible.com/ansible/latest/ufw_module.html):
+The `ufw_rules` variable is an list of dictionaries, with the following options from the [UFW module](http://docs.ansible.com/ansible/latest/ufw_module.html):
 
 ```yml
 ufw_rules:
