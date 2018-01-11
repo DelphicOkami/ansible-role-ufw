@@ -10,6 +10,8 @@
   set_fact:
     ufw_rules: "{{ ufw_rules_dict.values() | list }}"
   when: ufw_rules_dict is defined
+  tags:
+    - configuration
 
 - name: Check if firewall rules have changed
   template:
