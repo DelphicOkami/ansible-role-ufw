@@ -6,6 +6,11 @@
     update_cache: "yes"
     cache_valid_time: 3600
 
+- name: Define rules from dictionary
+  set_fact:
+    ufw_rules: "{{ ufw_rules_dict.values() | list }}"
+  when: ufw_rules_dict is defined
+
 - name: Check if firewall rules have changed
   template:
     src: "rules.j2"
