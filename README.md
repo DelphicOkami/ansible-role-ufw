@@ -40,6 +40,20 @@ ufw_rules:
     direction:
     log:
 ```
+You can override the `ufw_rules` variable with a dictionary variable with the name `ufw_rules_dict`, this is to allow splitting your configuration between host and group vars whilst making use of the hash merging behaviour [Reference](http://docs.ansible.com/ansible/latest/intro_configuration.html#hash-behaviour)
+```yml
+ufw_rules_dict:
+  unique_name_for_rule:
+    to_port:
+    rule:
+    proto:
+    to_ip:
+    from_port:
+    from_ip:
+    interface:
+    direction:
+    log:
+```
 
 You can specify the firewall's default policy with the `ufw_default_policy` variable, which accepts `allow`, `deny` and `reject ` as options.
 
