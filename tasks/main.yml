@@ -16,7 +16,7 @@
 - name: Check if firewall rules have changed
   template:
     src: "rules.j2"
-    dest: "/tmp/ansible.ufw.rules"
+    dest: "{{ ufw_rules_directory }}/ansible.ufw.rules"
     mode: 0600
   register: ufw_old_rules
   tags:
