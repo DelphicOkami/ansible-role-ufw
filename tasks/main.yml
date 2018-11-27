@@ -30,6 +30,12 @@
     - skip_ansible_lint     # When changed used to identify removed rules
     - configuration
 
+- name: Set default policy to allow
+  ufw:
+    policy: allow
+  tags:
+    - configuration
+
 - name: Apply custom firewall
   ufw:
     rule: "{{ item.rule }}"
